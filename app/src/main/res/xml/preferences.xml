@@ -1,0 +1,709 @@
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:my="http://schemas.android.com/apk/res/"
+  xmlns:ads="http://schemas.android.com/apk/res-auto"
+  android:key="prefMainScreen">
+  <PreferenceCategory android:title="Advanced DosBox Config">
+  	 <PreferenceScreen
+		android:key="detail"
+		android:title="@string/pref_dbsettings"
+		android:summary="@string/pref_advconfig">
+	    <ListPreference
+    		android:key="dosmemsize"
+      		android:title="@string/pref_memtitle"
+      		android:entries="@array/dosmemsize"
+		    android:entryValues="@array/dosmemsize_values"
+		    android:defaultValue="8"
+      		android:summary="@string/pref_memsum" />
+	    <ListPreference
+    		android:key="dosframeskip"
+      		android:title="帧跳过"
+      		android:entries="@array/dosframeskip"
+		    android:entryValues="@array/dosframeskip_values"
+		    android:defaultValue="2"
+      		android:summary="@string/pref_frameskip" />
+	    <ListPreference
+    		android:key="doscycles"
+      		android:title="循环"
+      		android:entries="@array/doscycles"
+		    android:entryValues="@array/doscycles_values"
+		    android:defaultValue="-1"      		
+      		android:summary="@string/pref_cycles" />
+		<ListPreference
+    		android:key="dosmachine"
+      		android:title="机器类型"
+      		android:entries="@array/dosmachine"
+		    android:entryValues="@array/dosmachine_values"
+		    android:defaultValue="svga_s3"      		
+      		android:summary="@string/pref_machine" />  
+   		<ListPreference
+    		android:key="doscpu"
+      		android:title="CPU 核心"
+      		android:entries="@array/doscpu"
+		    android:entryValues="@array/doscpu_values"
+		    android:defaultValue="dynamic"      		
+      		android:summary="@string/pref_cpucore" />
+   		<ListPreference
+    		android:key="doscputype"
+      		android:title="CPU 类型"
+      		android:entries="@array/doscputype"
+		    android:entryValues="@array/doscputype_values"
+		    android:defaultValue="auto"      		
+      		android:summary="@string/pref_cputype" />
+   		<ListPreference
+      		android:key="dossbtype"
+      		android:title="声音设备"
+	  		android:entries="@array/dossbtype"
+      		android:entryValues="@array/dossbtype_values"
+      		android:defaultValue="sb16"      		
+      		android:summary="@string/pref_sbtype" />
+	    <ListPreference
+      		android:key="dossbrate"
+      		android:title="音频频率率"
+	  		android:entries="@array/dossbrate"
+      		android:entryValues="@array/dossbrate_values"
+      		android:defaultValue="22050"      		
+      		android:summary="@string/pref_sbrate" />
+	    <ListPreference
+      		android:key="dosmixerblocksize"
+      		android:title="音频块大小"
+	  		android:entries="@array/dosmixerblocksize"
+      		android:entryValues="@array/dosmixerblocksize_values"
+      		android:defaultValue="1024"      		
+      		android:summary="@string/pref_mixerblocksize" />
+	  	<com.fishstix.dosboxfree.dosboxprefs.preference.SeekBarPreference android:key="dosmixerprebuffer"
+        	android:title="音频Pre-Buffer"
+        	android:summary="@string/pref_mixerprebuffer"
+        	android:dialogMessage="Audio Pre-Buffer (default: 15)"
+        	android:defaultValue="15"
+        	android:max="100" />
+	  	<CheckBoxPreference
+      		android:key="dosmt32"
+      		android:title="MT-32 Midi仿真"
+      		android:defaultValue="false"
+      		android:summary="启用Roland MT-32 MIDI仿真" />
+	  	<CheckBoxPreference
+      		android:key="dospcspeaker"
+      		android:title="电脑扬声器"
+      		android:defaultValue="false"
+      		android:summary="启用PC扬声器支持" />
+	    <CheckBoxPreference
+      		android:key="dostimedjoy"
+      		android:title="定时操纵杆"
+      		android:defaultValue="true"
+      		android:summary="为joy axis启用定时间隔(默认为true)" />
+	  	<ListPreference
+      		android:key="doskblayout"
+      		android:title="键盘布局"
+	  		android:entries="@array/doskblayout"
+      		android:entryValues="@array/doskblayout_values"
+      		android:defaultValue="auto"      		
+      		android:summary="@string/pref_kblayout" />   			    
+	    <EditTextPreference
+      		android:key="dosautoexec"
+      		android:title="自动执行"
+      		android:textSize="11sp"
+      		android:defaultValue="-1"    		
+      		android:summary="编辑此文件: autoexec.bat" />
+<!--       	<CheckBoxPreference
+      		android:key="dosautocpu"
+      		android:title="Force CPU Auto"
+      		android:defaultValue="false"
+      		android:summary="Give CPU auto priority to reduce audio skipping (may limit max cycles)" />  -->
+	    <CheckBoxPreference
+      		android:key="dosxms"
+      		android:title="XMS的支持"
+      		android:defaultValue="true"
+      		android:summary="启用XMS支持" />
+	    <CheckBoxPreference
+      		android:key="dosems"
+      		android:title="EMS的支持"
+      		android:defaultValue="true"
+      		android:summary="启用EMS支持" />
+	    <CheckBoxPreference
+      		android:key="dosumb"
+      		android:title="UMB支持"
+      		android:defaultValue="true"
+      		android:summary="启用UMB支持" />
+	    <CheckBoxPreference
+      		android:key="dospnp"
+      		android:title="ISA PnP支持"
+      		android:defaultValue="false"
+      		android:summary="模仿ISA插 &amp; BIOS。启动Win 9x时启用" />
+	    <CheckBoxPreference
+      		android:key="dosglide"
+      		android:title="3dfx滑移支架"
+      		android:defaultValue="false"
+      		android:summary="Voodoo 1滑翔仿真(警告:实验!)" />
+	    <CheckBoxPreference
+      		android:key="dosipx"
+      		android:title="IPX网络"
+      		android:defaultValue="false"
+      		android:summary="启用IPX网络模拟" />
+	    <CheckBoxPreference
+      		android:key="dosmanualconf"
+      		android:title="手动模式"
+      		android:defaultValue="false"
+      		android:summary="禁用的盖 dosbox.conf" />
+	    <EditTextPreference
+      		android:key="dosmanualconf_file"
+      		android:title="配置位置"
+      		android:defaultValue="-1"    		
+      		android:summary="@string/pref_manualconf_file" />
+	    <Preference
+	        android:key="doseditconf_file"
+	        android:title="Edit Config File"
+	        android:summary="@string/pref_editconf_file" />
+	 </PreferenceScreen>
+  </PreferenceCategory>
+  <PreferenceCategory android:title="Input Preferences">
+      <ListPreference
+      	android:key="confinputmode"
+      	android:title="选择输入模式"
+	  	android:entries="@array/confinputmode"
+      	android:entryValues="@array/confinputmode_values"
+      	android:defaultValue="0"
+      	android:summary="选择操纵杆，鼠标或滚动输入" />
+      <ListPreference
+      	android:key="confmousetracking"
+      	android:title="鼠标跟踪"
+	  	android:entries="@array/confmousetracking"
+      	android:entryValues="@array/confmousetracking_values"
+      	android:defaultValue="1"
+      	android:summary="选择绝对或相对鼠标跟踪" />
+      <PreferenceScreen
+ 	      android:title="鼠标灵敏度"
+ 	      android:summary="调整鼠标灵敏度，以进行相对鼠标跟踪">
+	  		<com.fishstix.dosboxfree.dosboxprefs.preference.SeekBarPreference android:key="confmousesensitivityx"
+       			android:title="X 灵敏度"
+       			android:summary="相对鼠标跟踪灵敏度X方向"
+       			android:dialogMessage="相关X鼠标敏感性(默认:50)"
+       			android:defaultValue="50"
+       			android:max="300" />
+	  		<com.fishstix.dosboxfree.dosboxprefs.preference.SeekBarPreference android:key="confmousesensitivityy"
+       			android:title="Y 灵敏度"
+       			android:summary="相对鼠标跟踪灵敏度Y方向"
+       			android:dialogMessage="相关Y鼠标敏感性(默认:50)"
+       			android:defaultValue="50"
+       			android:max="300" />
+	  </PreferenceScreen>      
+      <ListPreference
+      	android:key="confinputlatency"
+      	android:title="输入延迟"
+	  	android:entries="@array/confinputlatency"
+      	android:entryValues="@array/confinputlatency_values"
+      	android:defaultValue="0"
+      	android:summary="选择输入设备的延迟" />
+      <!--  temp -->
+ 	  <PreferenceScreen
+ 	      android:title="虚拟摇杆"
+ 	      android:summary="虚拟操纵杆设置">
+	  	<com.fishstix.dosboxfree.dosboxprefs.preference.SeekBarPreference android:key="confjoyx"
+       		android:title="显示中心位置:X"
+       		android:summary="调整操纵杆校准x轴"
+       		android:dialogMessage="设置X (默认: 100)"
+       		android:defaultValue="100"
+       		android:max="200" />      
+   	  	<com.fishstix.dosboxfree.dosboxprefs.preference.SeekBarPreference android:key="confjoyy"
+	       	android:title="显示中心位置:Y"
+    	   	android:summary="调整操纵杆校准Y轴"
+       		android:dialogMessage="设置Y (默认: 100)"
+       		android:defaultValue="100"
+       		android:max="200" />
+	  	<com.fishstix.dosboxfree.dosboxprefs.preference.SeekBarPreference android:key="confjoysize"
+       		android:title="操纵杆的大小"
+       		android:summary="设置太大可能会导致重叠"
+       		android:dialogMessage="默认大小: 5"
+       		android:defaultValue="5"
+       		android:max="10" />	  	
+	  	<com.fishstix.dosboxfree.dosboxprefs.preference.SeekBarPreference android:key="confjoytrans"
+       		android:title="操纵杆透明"
+       		android:summary="调整操纵杆的透明度"
+       		android:dialogMessage="默认 : 80 [0 ~ 100]"
+       		android:defaultValue="80"
+       		android:max="235" />
+	  	<CheckBoxPreference
+      		android:key="confjoymousemode"
+      		android:title="使用摇杆作为鼠标"
+      		android:defaultValue="false"
+      		android:summary="@string/pref_mousejoymode" /> 	
+   	  </PreferenceScreen>
+   	  <!-- end temp -->
+      <CheckBoxPreference
+      	android:key="confjoyoverlay"
+      	android:title="覆盖操纵杆"
+      	android:defaultValue="false"
+      	android:summary="在屏幕上显示虚拟操纵杆" />
+      <CheckBoxPreference
+      	android:key="confbuttonoverlay"
+      	android:title="覆盖按钮"
+      	android:defaultValue="false"
+      	android:summary="在屏幕上显示虚拟按钮" />
+      <ListPreference
+      	android:key="confbuttonlocation"
+      	android:title="按钮的位置"
+	  	android:entries="@array/confbuttonlocation"
+      	android:entryValues="@array/confbuttonlocation_values"
+      	android:defaultValue="1"
+      	android:summary="选择屏幕上虚拟按钮的位置" />
+  </PreferenceCategory>
+   	  	
+  <PreferenceCategory android:title="手势和映射">
+	  	<PreferenceScreen
+			android:key="dpad_mappings"
+			android:title="按钮/控制器地图"
+			android:summary="硬件按钮/控制器的映射">
+
+	   			<!-- Default DPAD_UP -->
+	   			<com.fishstix.dosboxfree.dosboxprefs.preference.GamePreference
+    				android:key="confmap_custom0"
+      				android:title="地图自定义按钮0"
+		    		my:defaultHardCode="19"
+		    		my:defaultDosCode="19"
+		    		android:defaultValue="0"
+      				android:summary="None"	   			    
+	   			/>	   			
+	   			<!-- Default DPAD_DOWN -->
+	   			<com.fishstix.dosboxfree.dosboxprefs.preference.GamePreference
+    				android:key="confmap_custom1"
+      				android:title="地图自定义按钮 1"
+		    		my:defaultHardCode="20"
+		    		my:defaultDosCode="20"
+		    		android:defaultValue="0"
+      				android:summary="None"	   			    
+	   			/>
+	   			<!-- Default DPAD_LEFT -->
+	   			<com.fishstix.dosboxfree.dosboxprefs.preference.GamePreference
+    				android:key="confmap_custom2"
+      				android:title="地图自定义按钮 2"
+		    		my:defaultHardCode="21"
+		    		my:defaultDosCode="21"
+		    		android:defaultValue="0"
+      				android:summary="None"	   			    
+	   			/>
+	   			<!-- Default DPAD_RIGHT -->
+	   			<com.fishstix.dosboxfree.dosboxprefs.preference.GamePreference
+    				android:key="confmap_custom3"
+      				android:title="地图自定义按钮 3"
+		    		my:defaultHardCode="22"
+		    		my:defaultDosCode="22"
+		    		android:defaultValue="0"
+      				android:summary="None"	   			    
+	   			/>
+	   			<!-- Default DPAD_CENTER -->
+	   			<com.fishstix.dosboxfree.dosboxprefs.preference.GamePreference
+    				android:key="confmap_custom4"
+      				android:title="地图自定义按钮 4"
+		    		my:defaultHardCode="23"
+		    		my:defaultDosCode="23"
+		    		android:defaultValue="0"
+      				android:summary="None"	   			    
+	   			/>
+	   			<!-- Default BACK -> ESC -->
+	   			<com.fishstix.dosboxfree.dosboxprefs.preference.GamePreference
+    				android:key="confmap_custom5"
+      				android:title="地图自定义按钮 5"
+		    		my:defaultHardCode="4"
+		    		my:defaultDosCode="111"
+		    		android:defaultValue="0"
+      				android:summary="None"	   			    
+	   			/>
+	   			<com.fishstix.dosboxfree.dosboxprefs.preference.GamePreference
+    				android:key="confmap_custom6"
+      				android:title="地图自定义按钮 6"
+		    		my:defaultHardCode="-1"
+		    		my:defaultDosCode="-1"
+		    		android:defaultValue="0"
+      				android:summary="None"	   			    
+	   			/>
+	   			<com.fishstix.dosboxfree.dosboxprefs.preference.GamePreference
+    				android:key="confmap_custom7"
+      				android:title="地图自定义按钮 7"
+		    		my:defaultHardCode="-1"
+		    		my:defaultDosCode="-1"
+		    		android:defaultValue="0"
+      				android:summary="None"	   			    
+	   			/>
+	   			<com.fishstix.dosboxfree.dosboxprefs.preference.GamePreference
+    				android:key="confmap_custom8"
+      				android:title="地图自定义按钮 8"
+		    		my:defaultHardCode="-1"
+		    		my:defaultDosCode="-1"
+		    		android:defaultValue="0"
+      				android:summary="None"	   			    
+	   			/>
+	   			<com.fishstix.dosboxfree.dosboxprefs.preference.GamePreference
+    				android:key="confmap_custom9"
+      				android:title="地图自定义按钮 9"
+		    		my:defaultHardCode="-1"
+		    		my:defaultDosCode="-1"
+		    		android:defaultValue="0"
+      				android:summary="None"	   			    
+	   			/>
+	   			<com.fishstix.dosboxfree.dosboxprefs.preference.GamePreference
+    				android:key="confmap_custom10"
+      				android:title="地图自定义按钮 10"
+		    		my:defaultHardCode="-1"
+		    		my:defaultDosCode="-1"
+		    		android:defaultValue="0"
+      				android:summary="None"	   			    
+	   			/>
+	   			<com.fishstix.dosboxfree.dosboxprefs.preference.GamePreference
+    				android:key="confmap_custom11"
+      				android:title="地图自定义按钮 11"
+		    		my:defaultHardCode="-1"
+		    		my:defaultDosCode="-1"
+		    		android:defaultValue="0"
+      				android:summary="None"	   			    
+	   			/>
+	   			<com.fishstix.dosboxfree.dosboxprefs.preference.GamePreference
+    				android:key="confmap_custom12"
+      				android:title="地图自定义按钮 12"
+		    		my:defaultHardCode="-1"
+		    		my:defaultDosCode="-1"
+		    		android:defaultValue="0"
+      				android:summary="None"	   			    
+	   			/>
+	   			<com.fishstix.dosboxfree.dosboxprefs.preference.GamePreference
+    				android:key="confmap_custom13"
+      				android:title="地图自定义按钮 13"
+		    		my:defaultHardCode="-1"
+		    		my:defaultDosCode="-1"
+		    		android:defaultValue="0"
+      				android:summary="None"	   			    
+	   			/>
+	   			<com.fishstix.dosboxfree.dosboxprefs.preference.GamePreference
+    				android:key="confmap_custom14"
+      				android:title="地图自定义按钮 14"
+		    		my:defaultHardCode="-1"
+		    		my:defaultDosCode="-1"
+		    		android:defaultValue="0"
+      				android:summary="None"	   			    
+	   			/>
+	   			<com.fishstix.dosboxfree.dosboxprefs.preference.GamePreference
+    				android:key="confmap_custom15"
+      				android:title="地图自定义按钮 15"
+		    		my:defaultHardCode="-1"
+		    		my:defaultDosCode="-1"
+		    		android:defaultValue="0"
+      				android:summary="None"	   			    
+	   			/>
+	   			<com.fishstix.dosboxfree.dosboxprefs.preference.GamePreference
+    				android:key="confmap_custom16"
+      				android:title="地图自定义按钮 16"
+		    		my:defaultHardCode="-1"
+		    		my:defaultDosCode="-1"
+		    		android:defaultValue="0"
+      				android:summary="None"	   			    
+	   			/>
+	   			<com.fishstix.dosboxfree.dosboxprefs.preference.GamePreference
+    				android:key="confmap_custom17"
+      				android:title="地图自定义按钮 17"
+		    		my:defaultHardCode="-1"
+		    		my:defaultDosCode="-1"
+		    		android:defaultValue="0"
+      				android:summary="None"	   			    
+	   			/>
+	   			<com.fishstix.dosboxfree.dosboxprefs.preference.GamePreference
+    				android:key="confmap_custom18"
+      				android:title="地图自定义按钮18"
+		    		my:defaultHardCode="-1"
+		    		my:defaultDosCode="-1"
+		    		android:defaultValue="0"
+      				android:summary="None"	   			    
+	   			/>
+	   			<com.fishstix.dosboxfree.dosboxprefs.preference.GamePreference
+    				android:key="confmap_custom19"
+      				android:title="地图自定义按钮 19"
+		    		my:defaultHardCode="-1"
+		    		my:defaultDosCode="-1"
+		    		android:defaultValue="0"
+      				android:summary="None"	   			    
+	   			/>
+	   			<com.fishstix.dosboxfree.dosboxprefs.preference.GamePreference
+    				android:key="confmap_custom20"
+      				android:title="地图自定义按钮 20"
+		    		my:defaultHardCode="-1"
+		    		my:defaultDosCode="-1"
+		    		android:defaultValue="0"
+      				android:summary="None"	   			    
+	   			/>
+	   			<com.fishstix.dosboxfree.dosboxprefs.preference.GamePreference
+    				android:key="confmap_custom21"
+      				android:title="地图自定义按钮 21"
+		    		my:defaultHardCode="-1"
+		    		my:defaultDosCode="-1"
+		    		android:defaultValue="0"
+      				android:summary="None"	   			    
+	   			/>
+	   			<com.fishstix.dosboxfree.dosboxprefs.preference.GamePreference
+    				android:key="confmap_custom22"
+      				android:title="地图自定义按钮 22"
+		    		my:defaultHardCode="-1"
+		    		my:defaultDosCode="-1"
+		    		android:defaultValue="0"
+      				android:summary="None"	   			    
+	   			/>
+	   			<com.fishstix.dosboxfree.dosboxprefs.preference.GamePreference
+    				android:key="confmap_custom23"
+      				android:title="地图自定义按钮 23"
+		    		my:defaultHardCode="-1"
+		    		my:defaultDosCode="-1"
+		    		android:defaultValue="0"
+      				android:summary="None"	   			    
+	   			/>
+	   			<com.fishstix.dosboxfree.dosboxprefs.preference.GamePreference
+    				android:key="confmap_custom24"
+      				android:title="地图自定义按钮 24"
+		    		my:defaultHardCode="-1"
+		    		my:defaultDosCode="-1"
+		    		android:defaultValue="0"
+      				android:summary="None"	   			    
+	   			/>
+	   			<com.fishstix.dosboxfree.dosboxprefs.preference.GamePreference
+    				android:key="confmap_custom25"
+      				android:title="地图自定义按钮 25"
+		    		my:defaultHardCode="-1"
+		    		my:defaultDosCode="-1"
+		    		android:defaultValue="0"
+      				android:summary="None"	   			    
+	   			/>
+	   			<com.fishstix.dosboxfree.dosboxprefs.preference.GamePreference
+    				android:key="confmap_custom26"
+      				android:title="地图自定义按钮 26"
+		    		my:defaultHardCode="-1"
+		    		my:defaultDosCode="-1"
+		    		android:defaultValue="0"
+      				android:summary="None"	   			    
+	   			/>
+	   			<com.fishstix.dosboxfree.dosboxprefs.preference.GamePreference
+    				android:key="confmap_custom27"
+      				android:title="地图自定义按钮 27"
+		    		my:defaultHardCode="-1"
+		    		my:defaultDosCode="-1"
+		    		android:defaultValue="0"
+      				android:summary="None"	   			    
+	   			/>
+	   			<com.fishstix.dosboxfree.dosboxprefs.preference.GamePreference
+    				android:key="confmap_custom28"
+      				android:title="地图自定义按钮 28"
+		    		my:defaultHardCode="-1"
+		    		my:defaultDosCode="-1"
+		    		android:defaultValue="0"
+      				android:summary="None"	   			    
+	   			/>
+	   			<com.fishstix.dosboxfree.dosboxprefs.preference.GamePreference
+    				android:key="confmap_custom29"
+      				android:title="地图自定义按钮 29"
+		    		my:defaultHardCode="-1"
+		    		my:defaultDosCode="-1"
+		    		android:defaultValue="0"
+      				android:summary="None"	   			    
+	   			/>
+	   			<Preference
+       				android:key="confcustom_add"
+       				android:title="添加按钮映射"
+       				android:summary="添加另一个按钮/控制器映射" />
+	   				
+	   			<Preference
+       				android:key="confcustom_clear"
+       				android:title="清除所有映射"
+       				android:summary="清除所有按钮/控制器映射" />
+	   				   			
+	   		<PreferenceCategory android:title="先进的控制器设置">
+<!-- 	   		<Preference
+       			android:key="confmapanalog_mouse"
+       			android:title="Map analog stick to Mouse"
+       			android:summary="Select an Analog Stick to map to Mouse Movement" />
+	   		<Preference
+       			android:key="confmapanalog_joy"
+       			android:title="Map analog stick to Joystick"
+       			android:summary="Select an Analog Stick to map to DOS Joystick" />  -->
+	   <!--    	<CheckBoxPreference
+    	  		android:key="confgenericmotion"
+      			android:title="Enable Analog Sticks"
+      			android:defaultValue="true"
+      			android:summary="Map Analog Sticks to Mouse and Joystick" /> -->
+	    	<ListPreference
+      			android:key="confanalogsticks"
+      			android:title="物理模拟棒"
+   				android:entries="@array/confanalog_maps"
+	    		android:entryValues="@array/confanalog_maps_values"
+      			android:defaultValue="0"      	
+      			android:summary="配置物理模拟杆映射" />
+	   		<CheckBoxPreference
+      			android:key="confenabledpad"
+      			android:title="将DPad映射到输入设备"
+      			android:defaultValue="false"
+      			android:summary="使用DPAD作为鼠标或操纵杆设备" />
+	   		<EditTextPreference
+				android:key="confdpadsensitivity"
+				android:title="DPad敏感性"
+				android:summary="手机DPad/光学轨迹板灵敏度值"
+      			android:defaultValue="7"
+				android:dialogTitle="Range is (1 - 25) [default 7]" />
+	   		</PreferenceCategory>
+	   	</PreferenceScreen>
+      
+	<PreferenceScreen
+		android:key="confgestures"
+		android:title="手势映射"
+		android:summary="自定义手势动作">
+<!-- 	   	<ListPreference
+    		android:key="confgesture_swipeup"
+      		android:title="Swipe Up Action"
+      		android:entries="@array/confgesture_swipe"
+		    android:entryValues="@array/confgesture_swipe_values"
+		    android:defaultValue="0"
+      		android:summary="Configure Swipe Up action"
+    	/>
+	   	<ListPreference 
+    		android:key="confgesture_swipedown"
+      		android:title="Swipe Down Action"
+      		android:entries="@array/confgesture_swipe"
+		    android:entryValues="@array/confgesture_swipe_values"
+		    android:defaultValue="0"
+      		android:summary="Configure Swipe Down action"
+    	/>  -->
+	    <ListPreference
+      		android:key="confgesture_singletap"
+      		android:title="单一利用行动"
+   			android:entries="@array/confgesture_singletap"
+	    	android:entryValues="@array/confgesture_singletap_values"
+      		android:defaultValue="3"      	
+      		android:summary="配置单一点击触摸屏鼠标" />
+	    <ListPreference
+      		android:key="confgesture_doubletap"
+      		android:title="双击动作"
+   			android:entries="@array/confgesture_doubletap"
+	    	android:entryValues="@array/confgesture_doubletap_values"
+      		android:defaultValue="4"      	
+      		android:summary="配置双击触摸屏鼠标" />
+	    <ListPreference
+      		android:key="confgesture_twofinger"
+      		android:title="两个手指动作"
+   			android:entries="@array/confgesture_singletap"
+	    	android:entryValues="@array/confgesture_singletap_values"
+      		android:defaultValue="0"      	
+      		android:summary="配置两个手指点击触摸屏鼠标" />
+	    <CheckBoxPreference
+      		android:key="confgesture_longpress"
+      		android:title="长按"
+      		android:defaultValue="true"
+      		android:summary="手势后按住手指，模拟鼠标按住" />
+	    </PreferenceScreen>    	
+      <CheckBoxPreference
+     	android:key="confaltfix"
+     	android:title="使用物理ALT"
+     	android:defaultValue="false"
+     	android:summary="使用物理左ALT键代替virt。离开ALT" />
+	</PreferenceCategory>
+	<PreferenceCategory android:title="屏幕和旋转设置">
+  	  <CheckBoxPreference
+      	android:key="confscale"
+      	android:title="屏幕比例"
+      	android:defaultValue="true"
+      	android:summary="启用屏幕缩放" />
+	  <com.fishstix.dosboxfree.dosboxprefs.preference.SeekBarPreference android:key="confresizefactor"
+        android:title="屏幕比例因子"
+        android:summary="比例模式的比例因子(景观)"
+        android:dialogMessage="Landscape Scale Factor"
+        android:defaultValue="100"
+        android:max="100" />
+      <ListPreference
+      	android:key="confscalelocation"
+      	android:title="按比例缩小的屏幕位置"
+	  	android:entries="@array/confscalelocation"
+      	android:entryValues="@array/confscalelocation_values"
+      	android:defaultValue="0"      		
+      	android:summary="当缩放时，选择屏幕位置" />
+	  <ListPreference
+      	android:key="confscalemode"
+      	android:title="规模质量"
+	  	android:entries="@array/confscalemode"
+      	android:entryValues="@array/confscalemode_values"
+      	android:defaultValue="0"      		
+      	android:summary="选择快速缩放或者HQ缩放" />
+	  <CheckBoxPreference
+      	android:key="confgpu"
+      	android:title="GPU渲染"
+      	android:defaultValue="false"
+      	android:summary="卸载图形渲染到GPU" />
+  	  <ListPreference
+     	android:key="confrotation"
+      	android:title="旋转设置"
+   		android:entries="@array/confrotation"
+	    android:entryValues="@array/confrotation_values"
+      	android:defaultValue="0"      	
+      	android:summary="配置自动/横向/纵向旋转" />
+  	  <CheckBoxPreference
+      	android:key="confkeepaspect"
+      	android:title="保持长宽比"
+      	android:defaultValue="true"
+      	android:summary="在景观模式中保持尺度高宽比" />
+  	  <ListPreference
+     	android:key="confslidingmenu"
+      	android:title="快捷菜单显示"
+   		android:entries="@array/confslidingmenu"
+	    android:entryValues="@array/confslidingmenu_values"
+      	android:defaultValue="0"      	
+      	android:summary="改变快速菜单的滑动方式" />
+    </PreferenceCategory>
+
+  <PreferenceCategory android:title="声音的喜好">
+  	  <CheckBoxPreference
+      	android:key="confsound"
+      	android:title="声音"
+      	android:defaultValue="true"
+      	android:summary="模拟音频输出(禁用以获得更快的速度)" />
+  </PreferenceCategory>
+  <PreferenceCategory android:title="Performance Tweaks">
+      <CheckBoxPreference
+      	android:key="confturbocycle"
+      	android:title="涡轮增压循环"
+      	android:defaultValue="false"
+      	android:summary="实验涡轮循环(可能导致声音问题)" />
+      <CheckBoxPreference
+      	android:key="confturbovga"
+      	android:title="涡轮VGA"
+      	android:defaultValue="true"
+      	android:summary="实验涡轮增压器" />
+      <CheckBoxPreference
+      	android:key="confturbomixer"
+      	android:title="涡轮音频"
+      	android:defaultValue="true"
+      	android:summary="实验低延迟音频" />
+  </PreferenceCategory>
+  <PreferenceCategory 
+      android:key="prefCatOther"
+      android:title="其他">
+    <Preference
+       android:key="confreset"
+       android:title="重置为默认"
+       android:summary="将所有首选项重置为默认值" />
+    <CheckBoxPreference
+      	android:key="confdebug"
+      	android:title="启用调试"
+      	android:defaultValue="false"      	
+      	android:summary="启用调试模式(缓慢)" />
+    <ListPreference
+     	android:key="confoptimization"
+      	android:title="优化"
+   		android:entries="@array/confoptimization"
+	    android:entryValues="@array/confoptimization_values"
+      	android:defaultValue="2"      	
+      	android:summary="更改优化(修正了华硕的一些设备)" />
+    <Preference
+        android:key="help"
+        android:title="帮助"
+        android:summary="查看常见问题并获得帮助">
+        <intent
+        	android:action="android.intent.action.VIEW"
+        	android:data="http://sites.google.com/site/dosboxturbo/" />
+    </Preference>
+    <Preference
+        android:key="version"
+        android:title="版本"
+        android:summary="0.84.35"/>
+  </PreferenceCategory>
+</PreferenceScreen>

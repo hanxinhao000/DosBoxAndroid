@@ -1,0 +1,37 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\termux-system\DosBoxApplication\library\AndroidManifest.xml:2:1-8:12
+INJECTED from D:\termux-system\DosBoxApplication\library\AndroidManifest.xml:2:1-8:12
+INJECTED from D:\termux-system\DosBoxApplication\library\AndroidManifest.xml:2:1-8:12
+INJECTED from D:\termux-system\DosBoxApplication\library\AndroidManifest.xml:2:1-8:12
+INJECTED from D:\termux-system\DosBoxApplication\library\AndroidManifest.xml:2:1-8:12
+INJECTED from D:\termux-system\DosBoxApplication\library\AndroidManifest.xml:2:1-8:12
+INJECTED from D:\termux-system\DosBoxApplication\library\AndroidManifest.xml:2:1-8:12
+	package
+		ADDED from D:\termux-system\DosBoxApplication\library\AndroidManifest.xml:3:5-50
+		INJECTED from D:\termux-system\DosBoxApplication\library\AndroidManifest.xml
+		INJECTED from D:\termux-system\DosBoxApplication\library\AndroidManifest.xml
+	android:versionName
+		ADDED from D:\termux-system\DosBoxApplication\library\AndroidManifest.xml:5:5-30
+		INJECTED from D:\termux-system\DosBoxApplication\library\AndroidManifest.xml
+		INJECTED from D:\termux-system\DosBoxApplication\library\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\termux-system\DosBoxApplication\library\AndroidManifest.xml:2:11-69
+	android:versionCode
+		ADDED from D:\termux-system\DosBoxApplication\library\AndroidManifest.xml:4:5-28
+		INJECTED from D:\termux-system\DosBoxApplication\library\AndroidManifest.xml
+		INJECTED from D:\termux-system\DosBoxApplication\library\AndroidManifest.xml
+uses-sdk
+INJECTED from D:\termux-system\DosBoxApplication\library\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\termux-system\DosBoxApplication\library\AndroidManifest.xml
+INJECTED from D:\termux-system\DosBoxApplication\library\AndroidManifest.xml
+INJECTED from D:\termux-system\DosBoxApplication\library\AndroidManifest.xml
+INJECTED from D:\termux-system\DosBoxApplication\library\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from D:\termux-system\DosBoxApplication\library\AndroidManifest.xml
+		ADDED from D:\termux-system\DosBoxApplication\library\AndroidManifest.xml
+		INJECTED from D:\termux-system\DosBoxApplication\library\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from D:\termux-system\DosBoxApplication\library\AndroidManifest.xml
+		ADDED from D:\termux-system\DosBoxApplication\library\AndroidManifest.xml
+		INJECTED from D:\termux-system\DosBoxApplication\library\AndroidManifest.xml
