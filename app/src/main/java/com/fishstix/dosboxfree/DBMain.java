@@ -130,143 +130,147 @@ public class DBMain extends SlidingActivity implements OnClickListener, OnChecke
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Log.i("DosBoxTurbo", "onCreate()");
-		mDosBoxLauncher = this;
-		requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
 
-		setContentView(R.layout.main);
-		setBehindContentView(R.layout.menu_layout);
-		mContext = this;
+		try {
+			mDosBoxLauncher = this;
+			requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
 
-
-		mConfPath = DosBoxPreferences.getExternalDosBoxDir(mContext);
-		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
-
-		PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-		prefs = PreferenceManager.getDefaultSharedPreferences(this);
+			setContentView(R.layout.main);
+			setBehindContentView(R.layout.menu_layout);
+			mContext = this;
 
 
-		// copy mt32 libs (if necessary)
+			mConfPath = DosBoxPreferences.getExternalDosBoxDir(mContext);
+			this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+			getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+			getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
+
+			PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+			prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+
+			// copy mt32 libs (if necessary)
 		/*if (!DBMenuSystem.MT32_ROM_exists(this)) {
 			getMIDIRoms();
 		}*/
-		System.loadLibrary("dosbox");
+			System.loadLibrary("dosbox");
 
 
-		mFrameLayout = (FrameLayout)findViewById(R.id.mFrame);
-		mSurfaceView = (DBGLSurfaceView)findViewById(R.id.mSurf);
-		mJoystickView = (JoystickView)findViewById(R.id.mJoystickView);
-		mButtonsView = (ButtonLayout)findViewById(R.id.ButtonLayout);
-		mJoystickView.setVisibility(View.GONE);
-		mButtonsView.setVisibility(View.GONE);
-		mButtonsView.mDBLauncher = this;
-		registerForContextMenu(mSurfaceView);
+			mFrameLayout = (FrameLayout) findViewById(R.id.mFrame);
+			mSurfaceView = (DBGLSurfaceView) findViewById(R.id.mSurf);
+			mJoystickView = (JoystickView) findViewById(R.id.mJoystickView);
+			mButtonsView = (ButtonLayout) findViewById(R.id.ButtonLayout);
+			mJoystickView.setVisibility(View.GONE);
+			mButtonsView.setVisibility(View.GONE);
+			mButtonsView.mDBLauncher = this;
+			registerForContextMenu(mSurfaceView);
 
-		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+			getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-		if (prefs.getBoolean("dosmanualconf", false)) {
-			File f;
-			f = new File(prefs.getString("dosmanualconf_file", DosBoxPreferences.getExternalDosBoxDir(mContext)+DosBoxPreferences.CONFIG_FILE));
+			if (prefs.getBoolean("dosmanualconf", false)) {
+				File f;
+				f = new File(prefs.getString("dosmanualconf_file", DosBoxPreferences.getExternalDosBoxDir(mContext) + DosBoxPreferences.CONFIG_FILE));
 
-			mConfPath = f.getParent()+"/";
-			mConfFile = f.getName();
-			if (!f.exists()) {
-				Log.i("DosBoxTurbo","Config file not found: "+f.getAbsolutePath());
-			}
-		}
-		mSurfaceView.mGPURendering = prefs.getBoolean("confgpu", false);
-		DBMenuSystem.loadPreference(this,prefs);
-
-		initDosBox();
-		startDosBox();
-
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
-		// calculate joystick constants
-		ViewTreeObserver observer = mSurfaceView.getViewTreeObserver();
-		observer.addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
-			public void onGlobalLayout() {
-				// re-calculate joystick constants
-				mSurfaceView.mActionBarHeight = getSupportActionBar().getHeight();
-				Log.v("DosBoxTurbo",
-						String.format("new width=%d; new height=%d", mSurfaceView.getWidth(),
-								mSurfaceView.getHeight()));
-				mSurfaceView.setDirty();
-
-				Rect r = new Rect();
-				//r will be populated with the coordinates of your view that area still visible.
-				mSurfaceView.getWindowVisibleDisplayFrame(r);
-				bKeyboard.setOnCheckedChangeListener(null);
-				if (mSurfaceView.getRootView().getHeight() - (r.bottom - r.top) > 100) { // if more than 100 pixels, its probably a keyboard...
-					Log.i("DosBoxTurbo", "Keyboard on");
-					bKeyboard.setChecked(true);
-					mSurfaceView.mKeyboardVisible = true;
-				} else {
-					Log.i("DosBoxTurbo", "Keyboard off");
-					bKeyboard.setChecked(false);
-					mSurfaceView.mKeyboardVisible = false;
+				mConfPath = f.getParent() + "/";
+				mConfFile = f.getName();
+				if (!f.exists()) {
+					Log.i("DosBoxTurbo", "Config file not found: " + f.getAbsolutePath());
 				}
-				bKeyboard.setOnCheckedChangeListener(mDosBoxLauncher);
 			}
-		});
-		setSlidingActionBarEnabled(true);
-		getSlidingMenu().setMode(SlidingMenu.LEFT);
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
+			mSurfaceView.mGPURendering = prefs.getBoolean("confgpu", false);
+			DBMenuSystem.loadPreference(this, prefs);
 
-		Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-		getSlidingMenu().setBehindOffset((int) (display.getWidth()/4.0d));
-		getSlidingMenu().setShadowWidthRes(R.dimen.shadow_width);
-		getSlidingMenu().setShadowDrawable(R.drawable.shadow);
-		getSlidingMenu().setFadeDegree(0.35f);
+			initDosBox();
+			startDosBox();
 
-		getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#99000000")));
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 
-		// resources
-		rowCycles = (TableRow)findViewById(R.id.tableRow_Cycles);
-		rowCycles.setOnClickListener(this);
-		iCycles = (TextView)findViewById(R.id.info_cycles);
-		rowFrameSkip = (TableRow)findViewById(R.id.tableRow_FrameSkip);
-		rowFrameSkip.setOnClickListener(this);
-		iFrameSkip = (TextView)findViewById(R.id.info_frameskip);
-		rowInputMode = (TableRow)findViewById(R.id.tableRow_InputMode);
-		rowInputMode.setOnClickListener(this);
-		iInputMode = (TextView)findViewById(R.id.info_inputmode);
-		rowTracking = (TableRow)findViewById(R.id.tableRow_Tracking);
-		rowTracking.setOnClickListener(this);
-		iTracking = (TextView)findViewById(R.id.info_tracking);
-		bKeyboard = (CompoundButton)findViewById(R.id.info_kbdoption);
-		bKeyboard.setOnCheckedChangeListener(this);
-		bJoystick = (CompoundButton)findViewById(R.id.info_joyoption);
-		bJoystick.setOnCheckedChangeListener(this);
-		bScaling = (CompoundButton)findViewById(R.id.info_scaleoption);
-		bScaling.setOnCheckedChangeListener(this);
-		bButtons = (CompoundButton)findViewById(R.id.info_buttonsoption);
-		bButtons.setOnCheckedChangeListener(this);
-		rowSpecialKey = (TableRow)findViewById(R.id.tableRow_SpecialKeys);
-		rowSpecialKey.setOnClickListener(this);
-		rowSettings = (TableRow)findViewById(R.id.tableRow_Settings);
-		rowSettings.setOnClickListener(this);
+			// calculate joystick constants
+			ViewTreeObserver observer = mSurfaceView.getViewTreeObserver();
+			observer.addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
+				public void onGlobalLayout() {
+					// re-calculate joystick constants
+					mSurfaceView.mActionBarHeight = getSupportActionBar().getHeight();
+					Log.v("DosBoxTurbo",
+							String.format("new width=%d; new height=%d", mSurfaceView.getWidth(),
+									mSurfaceView.getHeight()));
+					mSurfaceView.setDirty();
 
-		iGovernor = (TextView)findViewById(R.id.info_governor);
-		imgGovWarning = (ImageView)findViewById(R.id.info_governor_warning);
-		iCPUFamily = (TextView)findViewById(R.id.info_cputype);
-		iCPUNeon = (TextView)findViewById(R.id.info_neon);
-		iRenderMode = (TextView)findViewById(R.id.info_rendermode);
-		iDOSMem = (TextView)findViewById(R.id.info_dosmem);
-		iDBManager = (TextView)findViewById(R.id.info_manager);
-		iVersion = (TextView)findViewById(R.id.info_version);
-		bButtonA = (Button)findViewById(R.id.ButtonA);
-		bButtonB = (Button)findViewById(R.id.ButtonB);
-		bButtonC = (Button)findViewById(R.id.ButtonC);
-		bButtonD = (Button)findViewById(R.id.ButtonD);
+					Rect r = new Rect();
+					//r will be populated with the coordinates of your view that area still visible.
+					mSurfaceView.getWindowVisibleDisplayFrame(r);
+					bKeyboard.setOnCheckedChangeListener(null);
+					if (mSurfaceView.getRootView().getHeight() - (r.bottom - r.top) > 100) { // if more than 100 pixels, its probably a keyboard...
+						Log.i("DosBoxTurbo", "Keyboard on");
+						bKeyboard.setChecked(true);
+						mSurfaceView.mKeyboardVisible = true;
+					} else {
+						Log.i("DosBoxTurbo", "Keyboard off");
+						bKeyboard.setChecked(false);
+						mSurfaceView.mKeyboardVisible = false;
+					}
+					bKeyboard.setOnCheckedChangeListener(mDosBoxLauncher);
+				}
+			});
+			setSlidingActionBarEnabled(true);
+			getSlidingMenu().setMode(SlidingMenu.LEFT);
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+			getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
 
+			Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+			getSlidingMenu().setBehindOffset((int) (display.getWidth() / 4.0d));
+			getSlidingMenu().setShadowWidthRes(R.dimen.shadow_width);
+			getSlidingMenu().setShadowDrawable(R.drawable.shadow);
+			getSlidingMenu().setFadeDegree(0.35f);
 
+			getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#99000000")));
+
+			// resources
+			rowCycles = (TableRow) findViewById(R.id.tableRow_Cycles);
+			rowCycles.setOnClickListener(this);
+			iCycles = (TextView) findViewById(R.id.info_cycles);
+			rowFrameSkip = (TableRow) findViewById(R.id.tableRow_FrameSkip);
+			rowFrameSkip.setOnClickListener(this);
+			iFrameSkip = (TextView) findViewById(R.id.info_frameskip);
+			rowInputMode = (TableRow) findViewById(R.id.tableRow_InputMode);
+			rowInputMode.setOnClickListener(this);
+			iInputMode = (TextView) findViewById(R.id.info_inputmode);
+			rowTracking = (TableRow) findViewById(R.id.tableRow_Tracking);
+			rowTracking.setOnClickListener(this);
+			iTracking = (TextView) findViewById(R.id.info_tracking);
+			bKeyboard = (CompoundButton) findViewById(R.id.info_kbdoption);
+			bKeyboard.setOnCheckedChangeListener(this);
+			bJoystick = (CompoundButton) findViewById(R.id.info_joyoption);
+			bJoystick.setOnCheckedChangeListener(this);
+			bScaling = (CompoundButton) findViewById(R.id.info_scaleoption);
+			bScaling.setOnCheckedChangeListener(this);
+			bButtons = (CompoundButton) findViewById(R.id.info_buttonsoption);
+			bButtons.setOnCheckedChangeListener(this);
+			rowSpecialKey = (TableRow) findViewById(R.id.tableRow_SpecialKeys);
+			rowSpecialKey.setOnClickListener(this);
+			rowSettings = (TableRow) findViewById(R.id.tableRow_Settings);
+			rowSettings.setOnClickListener(this);
+
+			iGovernor = (TextView) findViewById(R.id.info_governor);
+			imgGovWarning = (ImageView) findViewById(R.id.info_governor_warning);
+			iCPUFamily = (TextView) findViewById(R.id.info_cputype);
+			iCPUNeon = (TextView) findViewById(R.id.info_neon);
+			iRenderMode = (TextView) findViewById(R.id.info_rendermode);
+			iDOSMem = (TextView) findViewById(R.id.info_dosmem);
+			iDBManager = (TextView) findViewById(R.id.info_manager);
+			iVersion = (TextView) findViewById(R.id.info_version);
+			bButtonA = (Button) findViewById(R.id.ButtonA);
+			bButtonB = (Button) findViewById(R.id.ButtonB);
+			bButtonC = (Button) findViewById(R.id.ButtonC);
+			bButtonD = (Button) findViewById(R.id.ButtonD);
+
+		}catch (Exception e){
+
+		}
 	}
 
 	@Override
@@ -276,8 +280,21 @@ public class DBMain extends SlidingActivity implements OnClickListener, OnChecke
 		shutDownDosBox();
 		mSurfaceView.shutDown();
 		mSurfaceView = null;
+		//nativeStop();
 		super.onDestroy();
 	}
+
+
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+			Toast.makeText(this, "请使用右上菜单返回", Toast.LENGTH_SHORT).show();
+			
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
 
 	@Override
 	protected void onPause() {
@@ -359,6 +376,9 @@ public class DBMain extends SlidingActivity implements OnClickListener, OnChecke
 		mSurfaceView.mDirty.set(true);
 		Log.i("DosBoxTurbo","onResume");
 	}
+
+
+
 
 	@SuppressLint("NewApi")
 	private void quickmenu() {
@@ -704,6 +724,7 @@ public class DBMain extends SlidingActivity implements OnClickListener, OnChecke
 		}
 	}
 
+	@SuppressLint("HandlerLeak")
 	public Handler mHandler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
@@ -731,7 +752,7 @@ public class DBMain extends SlidingActivity implements OnClickListener, OnChecke
 					break;
 				case HANDLER_ADD_BUTTONS:
 					FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-							LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
+							LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 					if (Integer.valueOf(prefs.getString("confbuttonlocation", "1"))==1) {
 						// bottom
 						mButtonsView.setGravity(Gravity.BOTTOM);
@@ -778,6 +799,11 @@ public class DBMain extends SlidingActivity implements OnClickListener, OnChecke
 			}
 		}
 	};
+
+	//nativeStop()
+
+
+
 
 	@Override
 	public void onClick(View v) {
@@ -842,6 +868,7 @@ public class DBMain extends SlidingActivity implements OnClickListener, OnChecke
 				}
 				break;
 			case R.id.info_buttonsoption:
+				Toast.makeText(this, "虚拟按键", Toast.LENGTH_SHORT).show();
 				if (isChecked) {
 					mHandler.sendMessage(mHandler.obtainMessage(DBMain.HANDLER_ADD_BUTTONS,0,0));
 				} else {

@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.fishstix.dosboxfree.DBMain"  android:theme="@style/Theme.AppCompat"/>
-        <activity android:name="com.fishstix.dosboxfree.dosboxprefs.DosBoxPreferences"  android:theme="@style/Theme.AppCompat"/>
+        <activity android:name="com.fishstix.dosboxfree.dosboxprefs.DosBoxPreferences"  android:theme="@style/Theme.AppCompat" android:windowSoftInputMode="stateHidden"/>
     </application>
 
 </manifest>
